@@ -18,7 +18,8 @@ namespace SuperheroCreatorProject.Controllers
         // GET: Superheros
         public ActionResult Index()
         {
-            return View();
+            var listOfSuperHeros = context.SuperHeroes.ToList();
+            return View(listOfSuperHeros);
         }
 
         // GET: Superheros/Details/5
@@ -54,39 +55,36 @@ namespace SuperheroCreatorProject.Controllers
         // GET: Superheros/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Superhero superhero = new Superhero();
+            superhero = context.SuperHeroes.Find(id);
+            return View(superhero);
+
         }
 
         // POST: Superheros/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //[HttpPost]
+        //public ActionResult Create([Bind(Include = "Id, Name, AlterEgo, PrimaryAbility, SecondaryAbility, CatchPhrase")]Superhero superhero)
+        //{
+      
+            
+        //}
 
         // GET: Superheros/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Superhero superhero = new Superhero();
+            return View(superhero);
         }
 
         // POST: Superheros/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, Superhero superhero)
         {
             try
             {
                 // TODO: Add delete logic here
-
+                context.SuperHeroes.Remove(superhero);
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
